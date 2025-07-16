@@ -15,5 +15,7 @@ public class Player_MoveState : EntityState
             // Transition to idle state when no move key is pressed
             stateMachine.ChangeState(player.idleState);
         }
+
+        player.SetVelocity(player.moveInput.x * player.moveSpeed, rb.linearVelocity.y);
     }
 }
