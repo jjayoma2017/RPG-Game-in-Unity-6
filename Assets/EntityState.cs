@@ -1,32 +1,36 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EntityState 
+public abstract class EntityState 
 {
+    protected Player player;
     protected StateMachine stateMachine;
-    protected string stateName;
-    public EntityState(StateMachine stateMachine, string stateName)
+    protected string animBoolName;
+    protected Animator anim;
+    public EntityState(Player player, StateMachine stateMachine, string animBoolName)
     {
+        this.player = player;
         this.stateMachine = stateMachine;
-        this.stateName = stateName;
+        this.animBoolName = animBoolName;
+        anim = player.anim;
     }
 
     public virtual void Enter()
     {
         // Called everytime  the state is changed
-        Debug.Log($"Entering state: {stateName}");
+        anim.SetBool(animBoolName, true);
     }
 
     public virtual void Update()
     {
         // We are going to run logic of the state here
-        Debug.Log($"Updating state: {stateName}");
+        Debug.Log($"Updating state: {animBoolName}");
     }
 
     public virtual void Exit()
     {
         // Called everytime  the state is exited and changed to a new one
-        Debug.Log($"Exiting state: {stateName}");
+        anim.SetBool(animBoolName, false);
     }
 
     
